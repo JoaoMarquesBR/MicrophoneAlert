@@ -10,6 +10,10 @@ namespace MicrophoneAlert.net
     public partial class Configuration : INotifyPropertyChanged
     {
         private InputDevice selectedDevice;
+        private OutputDevice selectedOutputDevice;
+
+
+
         public Configuration()
         {
             InitializeComponent();
@@ -32,6 +36,26 @@ namespace MicrophoneAlert.net
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(SelectedDevice)));
             }
         }
+
+
+        public IEnumerable<OutputDevice> OutputDevices { get => AudioDevices.Instance.OutputDevices; }
+        public OutputDevice SelectedOutputDevice
+        {
+            get
+            {
+                return selectedOutputDevice;
+            }
+            set
+            {
+                if (selectedOutputDevice == value) return;
+                selectedOutputDevice = value;
+                AudioDevices.Instance.SelectedOutputDeviceId = SelectedOutputDevice.Id;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(SelectedOutputDevice)));
+            }
+        }
+
+
+
         public int Limit
         {
             get

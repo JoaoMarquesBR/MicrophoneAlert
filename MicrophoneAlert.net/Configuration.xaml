@@ -6,9 +6,13 @@
         xmlns:local="clr-namespace:MicrophoneAlert.net"
         xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro" 
         mc:Ignorable="d" Background="White" ResizeMode="NoResize"
-        Title="Configuration" Height="180" Width="350" WindowStartupLocation="CenterScreen" SaveWindowPosition="True" Closing="MetroWindow_Closing">
+        Title="Configuration" Height="500" Width="350" WindowStartupLocation="CenterScreen" SaveWindowPosition="True" Closing="MetroWindow_Closing">
     <Grid Margin="15,10">
         <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="10"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="10"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="10"/>
             <RowDefinition Height="Auto"/>
@@ -36,9 +40,28 @@
             <TextBox Text="{Binding Value, ElementName=LimitSlider}" Grid.Column="1"/>
         </Grid>
 
-        <StackPanel Grid.Row="3" Grid.ColumnSpan="3" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,10">
-            <!--<Button Content="Save" Margin="10,0"/>-->
-            <Button Content="Close" Click="Button_Click"/>
+        <Grid Grid.Row="4" Grid.ColumnSpan="3">
+            <TextBlock Text="Output:"/>
+            <ComboBox ItemsSource="{Binding OutputDevices}" DisplayMemberPath="Name" 
+        SelectedItem="{Binding SelectedOutputDevice}" Margin="82,0,0,0"/>
+
+        </Grid>
+
+        <TextBlock Text="Output Level:" Grid.Row="6"/>
+        <Grid Grid.Column="2" Grid.Row="6">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="40"/>
+            </Grid.ColumnDefinitions>
+            <Slider Name="OutputLimitSlider" Minimum="0" Maximum="100" TickFrequency="1" 
+            Value="{Binding Path=OutputLimit, Source={x:Static local:AudioDevices.Instance}}"
+            AutoToolTipPlacement="TopLeft"/>
+            <TextBox Text="{Binding Value, ElementName=OutputLimitSlider}" Grid.Column="1"/>
+        </Grid>
+
+        <StackPanel Grid.Row="7" Grid.ColumnSpan="3" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center" >
+        <!--<Button Content="Save" Margin="10,0"/>-->
+            <Button Content="Close" Click="Button_Click" RenderTransformOrigin="0.452,1.16"/>
         </StackPanel>
     </Grid>
 </Controls:MetroWindow>

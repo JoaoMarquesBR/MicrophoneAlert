@@ -75,6 +75,8 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="AudioPlayer.cs" />
+    <Compile Include="OutputDevice.cs" />
     <Compile Include="Logger.cs" />
     <Compile Include="Settings.cs" />
     <Page Include="Configuration.xaml">

@@ -6,6 +6,7 @@ namespace MicrophoneAlert.net
     public class Settings
     {
         public string InputId { get; set; }
+        public string OutputId { get; set; }
         public int Limit { get; set; }
         public string FilePath { get; set; }
 
