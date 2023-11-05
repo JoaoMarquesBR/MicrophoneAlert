@@ -16,6 +16,8 @@ namespace MicrophoneAlert.net
         private SolidColorBrush backgroundColor;
         private Configuration config;
         private Timer timer;
+        private AudioPlayer audioPlayer;
+
         public MainWindow()
         {
             InitializeComponent();
@@ -26,6 +28,7 @@ namespace MicrophoneAlert.net
             timer.Elapsed += Timer_Elapsed;
             timer.Enabled = true;
 
+            audioPlayer = new AudioPlayer(); 
             TrayIcon();
         }
 
@@ -77,8 +80,21 @@ namespace MicrophoneAlert.net
                 {
                     var vol = AudioDevices.Instance.GetVolume();
                     DecibelsValue = ((int)vol).ToString();
-                    var color = vol >= AudioDevices.Instance.Limit ? Colors.Red : Colors.Lime;
-                    BackgroundColor = new SolidColorBrush(color);
+
+                    Color displayedColor;
+                    if (vol >= AudioDevices.Instance.Limit)
+                    {
+                        displayedColor = Colors.Red;
+                        audioPlayer.Play();
+                    }
+                    else
+                    {
+                        displayedColor = Colors.Lime;
+                        audioPlayer.Stop();
+                        audioPlayer.Dispose();
+
+                    }
+                    BackgroundColor = new SolidColorBrush(displayedColor);
                 });
             }
             finally

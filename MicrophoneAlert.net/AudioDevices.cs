@@ -154,6 +154,7 @@ namespace MicrophoneAlert.net
                 var originalOutputDevices = enumerator.EnumerateAudioEndPoints(DataFlow.Render, DeviceState.Active);
 
                 Devices.Clear();
+                OutputDevices.Clear();
                 Devices.AddRange(originalDevices.ToList().Select(d => new InputDevice(d.ID, d.FriendlyName)).ToList());
                 OutputDevices.AddRange(originalOutputDevices.ToList().Select(d => new OutputDevice(d.ID, d.FriendlyName)).ToList());
 

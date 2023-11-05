@@ -19,6 +19,7 @@ namespace MicrophoneAlert.net
             InitializeComponent();
             DataContext = this;
             selectedDevice = Devices.FirstOrDefault(d => d.Id == AudioDevices.Instance.SelectedDeviceId);
+            selectedOutputDevice = OutputDevices.FirstOrDefault(d => d.Id == AudioDevices.Instance.SelectedOutputDeviceId);
         }
 
         public IEnumerable<InputDevice> Devices { get => AudioDevices.Instance.Devices; }
@@ -49,7 +50,7 @@ namespace MicrophoneAlert.net
             {
                 if (selectedOutputDevice == value) return;
                 selectedOutputDevice = value;
-                AudioDevices.Instance.SelectedOutputDeviceId = SelectedOutputDevice.Id;
+                AudioDevices.Instance.SelectedOutputDeviceId = selectedOutputDevice.Id;
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(SelectedOutputDevice)));
             }
         }
